@@ -1,4 +1,4 @@
-module openstack-admin
+module github.com/luohao-brian/openstack-admin
 
 go 1.12
 
@@ -10,5 +10,7 @@ require (
 	github.com/go-ini/ini v1.42.0
 	github.com/gorilla/sessions v1.1.3 // indirect
 	github.com/jinzhu/gorm v1.9.8
-	github.com/luohao-brian/openstack-admin v0.0.0-20190612122306-4f60689d6cb7
+	github.com/kr/pretty v0.1.0 // indirect
+	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a // indirect
+	gopkg.in/ini.v1 v1.42.0 // indirect
 )

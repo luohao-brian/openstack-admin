@@ -1,4 +1,6 @@
+conf/app.ini
 openstack-admin
+logs
 .DS_Store
 */.DS_Store
 *~
