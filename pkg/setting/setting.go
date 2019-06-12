@@ -9,10 +9,10 @@ import (
 
 type App struct {
 	RuntimeRootPath string
-	LogSavePath string
-	LogSaveName string
-	LogFileExt  string
-	TimeFormat  string
+	LogSavePath     string
+	LogSaveName     string
+	LogFileExt      string
+	TimeFormat      string
 }
 
 var AppSetting = &App{}
@@ -31,15 +31,17 @@ type Database struct {
 	User     string
 	Password string
 	Host     string
+	Port     string
 	Name     string
 }
 
 var DatabaseSetting = &Database{}
 
 type Redis struct {
-	Host        string
-	Password    string
-	MaxIdle     int
+	Host     string
+	Port     string
+	Password string
+	MaxIdle  int
 }
 
 var RedisSetting = &Redis{}
@@ -57,7 +59,6 @@ func Setup() {
 	mapTo("server", ServerSetting)
 	mapTo("database", DatabaseSetting)
 	mapTo("redis", RedisSetting)
-
 
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
 	ServerSetting.WriteTimeout = ServerSetting.ReadTimeout * time.Second

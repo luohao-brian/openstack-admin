@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/contrib/sessions"
@@ -24,7 +25,7 @@ func InitRouter() *gin.Engine {
 	store, _ := sessions.NewRedisStore(
 		setting.RedisSetting.MaxIdle,
 		"tcp",
-		setting.RedisSetting.Host,
+		fmt.Sprintf("%s:%s", setting.RedisSetting.Host, setting.RedisSetting.Port),
 		setting.RedisSetting.Password,
 		[]byte("secret"))
 
