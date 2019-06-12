@@ -1,0 +1,13 @@
+{{define "pager"}}
+<div class="box-footer clearfix">
+共{{.paginator.totals}}条记录 共记{{.paginator.totalpages}} 页 当前页  {{.paginator.currpage}}
+  <ul class="pagination pagination-sm no-margin pull-right">
+    <li class=""><a href="{{.paginator.url}}{{.paginator.firstpage}}">«</a></li>
+    {{range $index,$page := .paginator.pages}}
+    <li  {{if eq $.paginator.currpage $page }}class="am-active"{{end}}><a href="{{$.paginator.url}}{{$page}}">{{$page}}</a></li>
+    {{end}}
+    <li><a href="{{.paginator.url}}{{.paginator.lastpage}}">»</a></li>
+  </ul>
+</div>
+
+{{end}}

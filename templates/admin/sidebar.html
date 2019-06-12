@@ -1,0 +1,21 @@
+{{define "sidebar"}}
+<aside class="main-sidebar" aria-hidden="true">
+	<!-- sidebar: style can be found in sidebar.less -->
+	<section class="sidebar">
+		<ul class="sidebar-menu" data-widget="tree">
+			<li class="header">主导航</li>
+			{{if eq .active 1}}
+		        <li class="active"><a href="/"><i class="fa fa-server"></i><span>主机列表</span></a></li>
+			{{else}}
+		        <li><a href="/"><i class="fa fa-server"></i><span>主机列表</span></a></li>
+			{{end}}
+			{{if eq .active 2}}
+			<li class="active"><a href="/instances"><i class="fa fa-th-list"></i><span>虚机列表</span></a></li>
+			{{else}}
+			<li><a href="/instances"><i class="fa fa-th-list"></i><span>虚机列表</span></a></li>
+			{{end}}
+		</ul>
+	</section>
+	<!-- /.sidebar -->
+</aside>
+{{end}}
