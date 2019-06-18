@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/luohao-brian/openstack-admin/handler"
 	"github.com/luohao-brian/openstack-admin/middleware"
+	"github.com/luohao-brian/openstack-admin/pkg/logging"
 	"github.com/luohao-brian/openstack-admin/pkg/setting"
 )
 
@@ -22,10 +23,13 @@ func InitRouter() *gin.Engine {
 	r.StaticFS("/img", http.Dir("static/img"))
 	r.LoadHTMLGlob("templates/admin/*")
 
+	var connstr = fmt.Sprintf("%s:%s", setting.RedisSetting.Host, setting.RedisSetting.Port)
+	logging.Info("Redis: ", connstr)
+
 	store, _ := sessions.NewRedisStore(
 		setting.RedisSetting.MaxIdle,
 		"tcp",
-		fmt.Sprintf("%s:%s", setting.RedisSetting.Host, setting.RedisSetting.Port),
+		connstr,
 		setting.RedisSetting.Password,
 		[]byte("secret"))
 

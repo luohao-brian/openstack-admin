@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"syscall"
 
 	"github.com/fvbock/endless"
@@ -28,11 +27,11 @@ func main() {
 	endless.DefaultMaxHeaderBytes = maxHeaderBytes
 	server := endless.NewServer(endPoint, routersInit)
 	server.BeforeBegin = func(add string) {
-		log.Printf("Actual pid is %d", syscall.Getpid())
+		logging.Info("Actual pid is", syscall.Getpid())
 	}
 
 	err := server.ListenAndServe()
 	if err != nil {
-		log.Printf("Server err: %v", err)
+		logging.Error("Server err: ", err)
 	}
 }

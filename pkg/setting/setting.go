@@ -8,6 +8,7 @@ import (
 )
 
 type App struct {
+	PageSize        int
 	RuntimeRootPath string
 	LogSavePath     string
 	LogSaveName     string
@@ -15,7 +16,13 @@ type App struct {
 	TimeFormat      string
 }
 
-var AppSetting = &App{}
+var AppSetting = &App{
+	PageSize:    10,
+	LogSavePath: "logs/",
+	LogSaveName: "openstack-admin",
+	LogFileExt:  "log",
+	TimeFormat:  "20060102",
+}
 
 type Server struct {
 	RunMode      string
@@ -24,9 +31,14 @@ type Server struct {
 	WriteTimeout time.Duration
 }
 
-var ServerSetting = &Server{}
+var ServerSetting = &Server{
+	RunMode:      "debug",
+	ReadTimeout:  60,
+	WriteTimeout: 60,
+	HttpPort:     8000,
+}
 
-type Database struct {
+type Nova struct {
 	Type     string
 	User     string
 	Password string
@@ -35,7 +47,14 @@ type Database struct {
 	Name     string
 }
 
-var DatabaseSetting = &Database{}
+var NovaSetting = &Nova{
+	Type:     "mysql",
+	Host:     "127.0.0.1",
+	Port:     "3306",
+	User:     "root",
+	Password: "root",
+	Name:     "nova",
+}
 
 type Redis struct {
 	Host     string
@@ -44,7 +63,11 @@ type Redis struct {
 	MaxIdle  int
 }
 
-var RedisSetting = &Redis{}
+var RedisSetting = &Redis{
+	Host:    "127.0.0.1",
+	Port:    "6379",
+	MaxIdle: 30,
+}
 
 var cfg *ini.File
 
@@ -57,7 +80,7 @@ func Setup() {
 
 	mapTo("app", AppSetting)
 	mapTo("server", ServerSetting)
-	mapTo("database", DatabaseSetting)
+	mapTo("nova", NovaSetting)
 	mapTo("redis", RedisSetting)
 
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second

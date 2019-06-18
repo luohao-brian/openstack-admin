@@ -2,11 +2,11 @@ package models
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 
+	"github.com/luohao-brian/openstack-admin/pkg/logging"
 	"github.com/luohao-brian/openstack-admin/pkg/setting"
 )
 
@@ -14,15 +14,17 @@ var db *gorm.DB
 
 func Setup() {
 	var err error
-	db, err = gorm.Open(setting.DatabaseSetting.Type, fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
-		setting.DatabaseSetting.User,
-		setting.DatabaseSetting.Password,
-		setting.DatabaseSetting.Host,
-		setting.DatabaseSetting.Port,
-		setting.DatabaseSetting.Name))
+	logging.Info(fmt.Sprintf("NovaDB: %s:*@tcp(%s:%s)/%s", setting.NovaSetting.User, setting.NovaSetting.Host, setting.NovaSetting.Port, setting.NovaSetting.Name))
 
+	var connstr = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		setting.NovaSetting.User,
+		setting.NovaSetting.Password,
+		setting.NovaSetting.Host,
+		setting.NovaSetting.Port,
+		setting.NovaSetting.Name)
+	db, err = gorm.Open(setting.NovaSetting.Type, connstr)
 	if err != nil {
-		log.Println(err)
+		logging.Error(err)
 	}
 
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
